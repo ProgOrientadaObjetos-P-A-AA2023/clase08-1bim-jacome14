@@ -2,15 +2,6 @@ package paquete1;
 
 import java.io.Serializable;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-
-/**
- *
- * @author reroes
- */
 public class Club implements Serializable{
 
     private int fundacion;

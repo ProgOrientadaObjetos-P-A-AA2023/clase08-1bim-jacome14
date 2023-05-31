@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package paquete0;
 
 import java.util.Scanner;
@@ -27,7 +23,8 @@ public class Principal {
                     "1) Ingrese Club",
                     "2) Listar Club",
                     "3) Ingrese Jugador",
-                    "4) Listar Jugador");
+                    "4) Listar Jugador"
+                    + "\n5) Verificar Jugador");
             int opcion = entrada.nextInt();
             if (opcion == 1) {
                 agregarClubs();
@@ -46,8 +43,16 @@ public class Principal {
                     } else {
                         if (opcion == 4) {
                             verJugadores();
-                        }else{
+                        } else {
                             System.out.println("Opción incorrecta");
+                        }
+                    }
+                    if (opcion == 5) {
+                        boolean jugador = verificarJugador();
+                        if (jugador) {
+                            System.out.println("Jugador existe");
+                        } else {
+                            System.out.println("Jugador no existe");
                         }
                     }
 
@@ -112,12 +117,12 @@ public class Principal {
                 = new LecturaSecuencialClub(nombreArchivoClub);
         lectura.establecerRegistroBuscado(siglasEquipo);
         Club c = lectura.obtenerRegistroBuscado();
-        
+
         // print para presentar si existe el club. Informativo
-        if (c==null) {
+        if (c == null) {
             System.out.println("Debe seleccionar de forma correcta el club");
         }
-        
+
         if (c != null) {
             EscrituraSecuencialJugador archivo
                     = new EscrituraSecuencialJugador(nombreArchivo);
@@ -131,7 +136,7 @@ public class Principal {
         }
         return bandera;
     }
-    
+
     public static void verJugadores() {
         String nombreArchivo = "data/jugadores.dat";
         LecturaSecuencialJugador lectura
@@ -139,6 +144,29 @@ public class Principal {
         lectura.establecerJugadores();
         System.out.println(lectura);
         lectura.cerrarArchivo();
+    }
+
+    public static boolean verificarJugador() {
+        Scanner entrada = new Scanner(System.in);
+
+        boolean bandera = false;
+        String cadena;
+        System.out.println("Ingrese el nombre del jugador a buscar: ");
+        cadena = entrada.nextLine();
+
+        // proceso para saber si existe el club
+        String nombreArchivo = "data/jugadores.dat";
+        LecturaSecuencialJugador lectura
+                = new LecturaSecuencialJugador(nombreArchivo);
+        lectura.establecerRegistroBuscado(cadena);
+        Jugador j = lectura.obtenerRegistroBuscado();
+
+        if (j == null) {
+            System.out.println("Debe ingresar el nombre bien");
+        }else {
+            bandera = true;
+        }
+        return bandera;
     }
 
 }

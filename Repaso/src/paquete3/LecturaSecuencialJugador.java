@@ -19,6 +19,8 @@ public class LecturaSecuencialJugador {
     private ObjectInputStream entrada;
     private ArrayList<Jugador> jugadores;
     private String nombreArchivo;
+//    private String cadena;
+    private Jugador reguistroBuscado;
 
     public LecturaSecuencialJugador(String n) {
         nombreArchivo = n;
@@ -65,6 +67,35 @@ public class LecturaSecuencialJugador {
             }
         }
     }
+    
+        public void establecerRegistroBuscado(String cadena) {
+        // 
+        
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Jugador registro = (Jugador) entrada.readObject();
+                    if (registro.obtenerNombre().equals(cadena)) {
+                        reguistroBuscado = registro;
+                    }
+                } catch (EOFException endOfFileException) {
+                    return; // se llegó al fin del archivo
+                    // se puede usar el break;
+                    // System.err.println("Fin de archivo: " + endOfFileException);
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
 
     public ArrayList<Jugador> obtenerJugadores() {
         return jugadores;
@@ -73,6 +104,10 @@ public class LecturaSecuencialJugador {
     public String obtenerNombreArchivo() {
         return nombreArchivo;
     }
+    public Jugador obtenerRegistroBuscado() {
+        return reguistroBuscado;
+    }
+
 
     @Override
     public String toString() {
